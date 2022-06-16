@@ -48,7 +48,7 @@ mix.js('resources/js/app.js', 'public/js')
 
 - Vue
 
-````
+```
 
 // パッケージのインストール
 composer require laravel/ui
@@ -66,7 +66,7 @@ npm run dev
 
 npm install vue-router
 
-````
+```
 
 ```app.js
 require('./bootstrap');
@@ -82,13 +82,27 @@ const app = new Vue({
 });
 ```
 
+- Vuetify
+
+```
+npm i vuetify
+```
+
+```resources/js/app.js
+import Vuetify from 'vuetify';
+Vue.use(Vuetify);
+
+// ...中略
+
+const app = new Vue({
+  el: ‘#app’,
+  vuetify: new Vuetify(),
+});
+```
+
 ## 規約
 
 ### ルーティング
 
 Vue の route に関しては、router.js に記載
 Laravel の route に関しては、api.php に記載
-
-```
-
-```
