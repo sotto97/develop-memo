@@ -100,6 +100,33 @@ const app = new Vue({
 });
 ```
 
+app.scss に以下を追加
+
+```
+// vuetify
+@import "~vuetify/dist/vuetify.min.css";
+@import "~@mdi/font/css/materialdesignicons.min.css";
+```
+
+ソースの変更を即座に同期して反映してくれる browserSync
+
+```webpack.mix.js
+mix.js("resources/js/app.js", "public/js")
+    .version()
+    .vue()
+    .sass("resources/sass/app.scss", "public/css")
+    .postCss("resources/css/app.css", "public/css", [require("tailwindcss")])
+    // ↓ここを追加
+    .browserSync({
+        files: ["resources/**/*", "config/**/*", "routes/**/*", "app/**/*", "public/**/*"],
+        proxy: {
+            target: "http://localhost:8000",
+        },
+        open: false,
+        reloadOnRestart: true,
+    });
+```
+
 ## 規約
 
 ### ルーティング
