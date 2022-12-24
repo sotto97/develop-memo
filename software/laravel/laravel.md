@@ -2,6 +2,19 @@
 
 ## 手順
 
+- ログイン機能
+
+```bash
+
+composer require laravel/ui:^3
+# LOGIN機能
+php artisan ui vue --auth
+npm install && npm run dev
+
+# テーブル作成
+php artisan migrate
+```
+
 - TailwindCSS
 
 ```bash
