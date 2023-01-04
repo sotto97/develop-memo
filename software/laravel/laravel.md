@@ -1,12 +1,67 @@
 # Laravel
 
+## よく使うコマンド
+
+```bash
+$ php artisan make:model Report -m -c -r
+$ php artisan make:controller ReportController --resource
+
+# マイグレーションファイルも同時生成
+$ php artisan make:model Models/Report -m
+
+# Postsというテーブルにbodyを追加したい場合
+$ php artisan make:migration add_body_to_posts_table --table=posts
+```
+
 ## 手順
+
+- エラーメッセージの日本語化
+
+```bash
+php -r "copy('https://readouble.com/laravel/8.x/ja/install-ja-lang-files.php', 'install-ja-lang.php');"
+php -f install-ja-lang.php
+php -r "unlink('install-ja-lang.php');"
+```
+
+```php
+// config/app.php
+'locale' => 'ja',
+```
+
+- 論理削除カラムを作成
+
+```bash
+# Productsというテーブルにdeleted_atを追加する
+$ php artisan make:migration add_softDelete_to_products_table --table=products
+```
+
+```php
+// migrationファイル内
+public function up()
+{
+    Schema::table('products', function (Blueprint $table) {
+        $table->softDeletes();
+    });
+}
+
+/**
+ * Reverse the migrations.
+ *
+ * @return void
+ */
+public function down()
+{
+    Schema::table('products', function (Blueprint $table) {
+        $table->dropSoftDeletes();
+    });
+}
+```
 
 - ログイン機能
 
 ```bash
-
 composer require laravel/ui:^3
+
 # LOGIN機能
 php artisan ui vue --auth
 npm install && npm run dev
