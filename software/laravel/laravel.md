@@ -15,6 +15,71 @@ $ php artisan make:migration add_body_to_posts_table --table=posts
 
 ## 手順
 
+- テストデータの作成
+
+artisan で必要な Factory を作成
+
+```bash
+php artisan make:factory ProductFactory
+```
+
+```php
+// app/Models/Product.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Product extends Model
+{
+    use HasFactory;  // ⇦これが重要
+}
+```
+
+Factory に記載
+
+```php
+// server/tsuchi-kun/database/factories/ProductFactory.php
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Product;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class ProductFactory extends Factory
+{
+    // protected $model = Factory::class;
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name'        => $this->faker->name(),
+            'start_date'  => $this->faker->date(),
+            'end_date'    => $this->faker->date(),
+            'limit'       => $this->faker->randomNumber(),
+            'description' => $this->faker->sentence()
+        ];
+    }
+}
+```
+
+Seeder に今回の Product を追加
+
+```php
+    public function run()
+    {
+        // \App\Models\User::factory(10)->create();
+        Product::factory(30)->create();     // ⇦これが必要
+    }
+```
+
 - エラーメッセージの日本語化
 
 ```bash
